@@ -146,8 +146,8 @@ export default {
 #panel {
   height: 87vh;
   border: 0.5px solid lightgray;
-  border-radius: 15px;
-  margin-top: 6vh;
+  border-radius: 10px;
+  margin: 6vh 0.5vw 0 0;
   overflow: scroll;
 }
 
