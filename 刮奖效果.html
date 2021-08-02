@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F39C12;
+            text-align: center;
+            margin: 40px;
+            color: #FFF;
+            font-family: sans-serif;
+        }
+
+        .scratch {
+            width: 250px;
+            height: 80px;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            background: url(https://tse2-mm.cn.bing.net/th/id/OIP-C.4mrNwdhP3H4rsqKjkurTagHaEA?w=335&h=181&c=7&o=5&dpr=1.5&pid=1.7) no-repeat;
+            background-size: 250px 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scratch">
+        <canvas class="mask" width="250" height="80"></canvas>
+    </div>
+    <p class="tip">请在以上区域刮奖</p>
+
+    <script>
+        let canvas = document.querySelector('.mask');
+        let context = canvas.getContext("2d");
+        //给canvas填充颜色（遮罩层颜色）
+        context.fillStyle = "#D1D1D1";
+        context.fillRect(0, 0, 250, 80);
+        //此属性可以在填充层上再次绘制任何颜色，使填充层变透明
+        context.globalCompositeOperation = 'destination-out';
+        //模拟手指在画布上移动，填充任意颜色
+        canvas.addEventListener('touchmove', function (event) {
+            event.preventDefault();
+            let touch = event.targetTouches[0];
+            //开始路径的绘制
+            context.beginPath();
+            //在所触摸处绘制手指圆形，半径为15像素
+            context.arc(touch.pageX - canvas.offsetLeft, touch.pageY - canvas.offsetTop, 15, 0, Math.PI * 2);//圆心，半径，起始角度，结束角度
+            context.closePath();
+            context.fillStyle = "#BDC3C7";
+            context.fill();//填充颜色
+            //开始计算透明区域范围，用于判断刮奖结束
+            let imgData = context.getImageData(0, 0, 250, 80);//获取画布中的所有像素
+            let pixelsArr = imgData.data;//获取像素字节数据
+            let loop = pixelsArr.length;//获取字节数据长度
+            let transparent = 0;//以透明像素数量
+            //循环遍历每一个像素，为什么步长是4？？？
+            for (let i = 0; i < loop; i += 4) {
+                let alpha = pixelsArr[i + 3];//获取每个像素透明度数值
+                //当透明度小于10时，认为它已经被擦除
+                if (alpha < 10) {
+                    transparent++;
+                }
+            }
+            //计算透明像素在所有像素点中所占的比例
+            let percentage = transparent / (loop / 4);
+            //当该比例大于60%时，清除所有遮罩层
+            if (percentage > 0.6) {
+                document.querySelector('.tip').innerHTML = "刮奖结束！";
+                //清除遮掩层
+                context.clearRect(0, 0, 250, 80);
+            }
+        });
+
+    </script>
+</body>
+
+</html>
