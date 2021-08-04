@@ -1,0 +1,234 @@
+body{
+    max-width: 540px;
+    min-width: 320px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #000;
+    background: #f2f2f2;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+ul{
+    list-style: none;
+    /* ul默认有padding值，要清除掉 */
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: #222;
+}
+
+/* 顶部搜索部分 */
+.search-index{
+    display: flex;
+    position:fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* 固定的盒子应该有宽度 */
+    width: 100%;
+    max-width: 540px;
+    min-width: 320px;
+    height: 44px;
+    background-color: #f6f6f6;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;    
+
+}
+.user{
+    width: 44px;
+    height: 44px;
+    /* color: white; */
+    color: rgb(93, 198, 240);
+    /* background-color: purple; */
+    line-height: 44px;
+    text-align: center;
+
+}
+.search{
+    flex: 1;
+    height: 26px;
+    border: 1px solid #ccc;
+    margin: 7px 9px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 26px;
+    padding-left: 5px;
+    color: gray;
+    box-shadow: 0 2px 4px rgba(0, 0, 0,.2);
+}
+
+/* 焦点图部分 */
+.focus img{
+    width: 100%;
+}
+
+/* 局部导航栏部分 */
+.local-nav{
+    display: flex;
+    height: 64px;
+    background-color: white;
+    margin: 3px 4px;
+    border-radius: 8px;
+}
+.local-nav li{
+    flex: 1;
+}
+.local-nav a{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+.local-nav .local-nav-icon{
+    width: 32px;
+    height: 32px;
+    background-color: pink;
+    margin-top: 8px;
+    background: url(https://youimg1.c-ctrip.com/target/100o0s000000hmcopBF88.png) no-repeat 0 0;
+    background-size: 32px auto;
+}
+nav{
+    border-radius: 8px;
+    margin: 0 4px 3px;
+    /* 显示被隐藏的小圆角 */
+    overflow: hidden;
+}
+/* 主导航栏部分 */
+.nav-common{
+    display: flex;
+    height: 88px;
+    /* background-color: pink; */
+}
+.nav-common:nth-child(2){
+    margin: 3px 0;
+}
+.nav-common .nav-items{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+/* -n+2选择前两个孩子 */
+.nav-items:nth-child(-n+2){
+    border-right: 1px solid white;
+}
+.nav-items a{
+    flex:1;
+    text-align: center;
+    line-height: 44px;
+    color: #fff;
+    font-size: 12px;
+}
+.nav-items:nth-child(1) a{
+    border: 0;
+    background: url(https://pic.c-ctrip.com/platform/h5/home/grid-nav-items-hotel@v7.15.png) no-repeat bottom center;
+    background-size: 121px auto;
+}
+.nav-items a:first-child{
+    border-bottom: 1px solid #fff;
+    text-shadow: 1px 1px rgba(0, 0, 0,.2);
+}
+/* 背景颜色渐变 */
+.nav-common:nth-child(1){
+    background: -webkit-linear-gradient(left,#FF684F,#F89A4D);
+}
+.nav-common:nth-child(2){
+    background: -webkit-linear-gradient(left,#4C8EEC,#51BBEB);
+}
+.nav-common:nth-child(3){
+    background: -webkit-linear-gradient(left,#33C2A6,#6AD557);
+}
+
+/* 侧导航栏部分 */
+.subnav{
+    margin: 0 4px;
+    border-radius: 8px;
+    background-color: white;
+    padding: 5px 0;
+    box-shadow: 1px 1px rgba(0, 0, 0,.2);
+}
+.subnav ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.subnav li{
+    flex: 20%;
+}
+.subnav a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+.subnav .subnav-icon{
+    width: 28px;
+    height: 28px;
+    background-color: pink;
+    margin-top: 4px;
+    background: url(https://pic.c-ctrip.com/platform/h5/home/un_ico_subnav2x@v7.33.png) no-repeat;
+    background-size: 28px auto;
+}
+/* 销售模块 */
+.sale-box .sale-hd{
+    position: relative;
+    height: 44px;
+    margin: 0 4px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+.sale-hd h2{
+  
+    font-size: 15px;
+    color: orange;
+}
+/* .sale-hd h2::after{
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    content: "热门活动";
+    width: 79px;
+    height: 15px; 
+    background: url(https://pic.c-ctrip.com/platform/h5/home/baodi2@v7.15.jpg) no-repeat;
+    background-size: 79px auto;
+
+} */
+
+.more{
+    position: absolute;
+    top: 12px;
+    right: 3px;
+    background: -webkit-linear-gradient(left,#FF6164,#FC6AC1);
+    border-radius: 15px;
+    padding: 3px 8px;
+    color: white;
+    font-size: 13px;
+}
+.sale-bd .row{
+    display: flex;
+}
+.sale-bd .row a{
+    flex: 1;
+    border-bottom: 1px solid white;
+}
+.sale-bd .row a img{
+    width: 100%;
+}
+.row a:nth-child(1){
+    border-right: 1px solid white;
+}
+.footer{
+    display: flex;
+    background-color: #FFFFFF;
+    padding: 7px 0;
+    border-top: 1px  solid lightgray;
+    border-bottom: 1px  solid lightgray;
+
+}
+.footer a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    font-size: 13px;
+}
