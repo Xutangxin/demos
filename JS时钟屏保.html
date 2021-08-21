@@ -76,6 +76,10 @@
         dots = document.getElementById('dots');
     //每秒获取一次时间
     setInterval(() => {
+        changeTime();
+    }, 1000);
+
+    function changeTime() {
         let date = new Date();
         let month = date.getMonth() + 1,
             day = date.getDay(),
@@ -87,7 +91,7 @@
         min = min < 10 ? '0' + min : min;
         h.innerHTML = hour;
         m.innerHTML = min;
-    }, 1000);
+    }
 
     //实现中间的:闪烁效果
     let visible = true;
