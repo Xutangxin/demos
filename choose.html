@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main {
+            width: 90vw;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+        }
+
+        body {
+            padding: 10px;
+        }
+
+        input {
+            width: 10vw;
+            height: 3vh;
+            outline: none;
+        }
+
+        #choices input {
+            margin-right: 3px;
+        }
+
+        button {
+            width: 80px;
+            height: 3vh;
+            outline: none;
+
+        }
+
+        #res span {
+            background-color: skyblue;
+        }
+
+        #result {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <input id="number" type="text" placeholder="输入个数">
+        <button id="make">生成</button><button id="reset">重置</button><br><br>
+        <div id="choices">
+            <button id="result">获取结果</button><br>
+        </div><br>
+        <div id="res">结果为：<span></span></div>
+    </div>
+
+
+    <script>
+        let input = document.querySelector('#number')
+        let make = document.querySelector('#make')
+        let number = input.value
+        let choices = document.querySelector('#choices')
+        let getResult = document.querySelector('#result')
+        let result = document.querySelector('#res span')
+        let reset = document.querySelector('#reset')
+
+        function getRandom(n, m) {
+            return Math.floor(Math.random() * (m - n + 1) + n)
+        }
+
+        make.onclick = () => {
+            if (!input.value) {
+                return
+            }
+            for (let i = 0; i < input.value; i++) {
+                let content = document.createElement('input')
+                let j = i + 1
+                content.value = '选择' + j
+                choices.appendChild(content)
+            }
+            input.value = ''
+        }
+
+        getResult.onclick = () => {
+            let list = document.querySelectorAll('#choices input')
+            let arr = []
+
+            if (!list.length) {
+                return
+            }
+
+            for (let val of list) {
+                arr.push(val.value)
+            }
+
+            let index = getRandom(0, arr.length - 1)
+            result.innerHTML = arr[index]
+        }
+
+        reset.onclick = () => {
+            location.reload()
+        }
+
+    </script>
+
+</body>
+
+</html>
