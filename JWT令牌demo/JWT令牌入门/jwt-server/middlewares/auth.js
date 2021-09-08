@@ -7,7 +7,7 @@ class Auth {
     Auth.USER = 2
     Auth.ADMIN = 8
     this.level = level
-  } 
+  }
 
   get middleware() {
     return async (ctx, next) => {
@@ -25,7 +25,7 @@ class Auth {
 
       try {
         var decoded = jwt.verify(token.name, secretKey)
-      } catch(e) {
+      } catch (e) {
         if (e.name === 'tokenExpiredError') {
           errMsg = 'token已过期'
         }
@@ -49,11 +49,11 @@ class Auth {
     }
   }
 
-  static async verifyToken(token) {
+  static verifyToken(token) {
     try {
       jwt.verify(token, secretKey)
       return true
-    } catch(e) {
+    } catch (e) {
       return false
     }
   }

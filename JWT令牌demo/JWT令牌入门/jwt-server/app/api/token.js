@@ -24,11 +24,18 @@ tokenRouter.post('/', async ctx => {
   }
 
   ctx.body = {
+    msg: '登录成功',
     token
   }
 })
 
-tokenRouter.post('/verify', async (ctx, next) => {
+//验证token合法性
+tokenRouter.post('/verify', async (ctx) => {
+  const token = ctx.request.body.token
+  const isValid = Auth.verifyToken(token)
+  ctx.body = {
+    isValid
+  }
 
 })
 
@@ -41,7 +48,6 @@ function verifyUsernamePassword(username, password) {
   const index = users.findIndex(user => user.username === username && user.password === password)
 
   const user = users[index]
-  console.log(user);
   if (!user) {
     return
   }
