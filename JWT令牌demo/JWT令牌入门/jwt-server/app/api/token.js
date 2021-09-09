@@ -51,7 +51,7 @@ function verifyUsernamePassword(username, password) {
   if (!user) {
     return
   }
-  const token = generateToken(user.id, 2)
+  const token = generateToken(user.id, Auth.USER)
   return token
 }
 

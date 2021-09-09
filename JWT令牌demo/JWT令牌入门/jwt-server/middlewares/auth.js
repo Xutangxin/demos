@@ -9,16 +9,18 @@ class Auth {
     this.level = level
   }
 
+  //权限控制
   get middleware() {
     return async (ctx, next) => {
       const token = basicAuth(ctx.request)
       let errMsg = 'token不合法'
 
+      //token为空
       if (!token || token.name === 'null') {
         ctx.body = {
           errCode: 10005,
           msg: errMsg,
-          request: `${ctx.method} ${ctx.path}`
+          request: `${ctx.request} ${ctx.path}`
         }
         return
       }
@@ -26,21 +28,24 @@ class Auth {
       try {
         var decoded = jwt.verify(token.name, secretKey)
       } catch (e) {
+        //token过期
         if (e.name === 'tokenExpiredError') {
           errMsg = 'token已过期'
         }
         ctx.body = {
           errCode: 10005,
           msg: errMsg,
-          request: `${ctx.method} ${ctx.path}`
+          request: `${ctx.request} ${ctx.path}`
         }
+        return
       }
 
+      //权限不足
       if (decoded.scope < this.level) {
         ctx.body = {
-          errCode: 10005,
+          errCode: 10006,
           msg: '权限不足',
-          request: `${ctx.method} ${ctx.path}`
+          request: `${ctx.request} ${ctx.path}`
         }
         return
       }
