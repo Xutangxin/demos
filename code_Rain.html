@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: black;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="rain" width="1440" height="900"></canvas>
+
+    <script>
+        let can = document.querySelector('#rain');
+        let context = can.getContext('2d');
+        // 得到canvas宽高
+        let screen = window.screen,
+            canWidth = can.width,
+            canHeight = can.height;
+        // 设置字体，得到列数
+        let fontSize = 13,
+            colunms = Math.floor(canWidth / fontSize)
+        // drops的作用：
+        let drops = [],
+            str = '01';
+        // 绘画函数
+        function draw() {
+            // 遮罩层
+            context.fillStyle = 'rgba(0,0,0, .08)';//第四个参数越大，透明度越低
+            context.fillRect(0, 0, canWidth, canHeight);
+            // 设置字体样式(600是fontweight)
+            context.font = "600 " + fontSize + "px  Georgia";
+            // 设置字体颜色
+            context.fillStyle = 'green';
+            // 把字符写入画布中（实现效果的核心）
+            for (let i = 0; i < colunms; i++) {
+                drops.push(0);
+                let index = Math.floor(Math.random() * str.length);
+                // 每一列字符的i是不变的
+                let x = i * fontSize,
+                    y = drops[i] * fontSize;
+                context.fillText(str[index], x, y);
+                if (y >= canHeight && Math.random() > 0.99) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        draw();
+        setInterval(draw, 45);
+
+    </script>
+
+</body>
+
+</html>
