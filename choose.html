@@ -15,9 +15,9 @@
 
         .main {
             width: 90vw;
+            height: fit-content;
             margin: 0 auto;
             padding: 20px;
-            border: 1px solid lightgray;
             border-radius: 5px;
         }
 
@@ -25,41 +25,51 @@
             padding: 10px;
         }
 
-        input {
-            width: 10vw;
-            height: 3vh;
-            outline: none;
-        }
-
-        #choices input {
-            margin-right: 3px;
-        }
-
-        button {
+        .btn {
             width: 80px;
-            height: 3vh;
+            height: 40px;
+            margin-left: 10px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
             outline: none;
-
         }
 
-        #res span {
-            background-color: skyblue;
+        #number,
+        .item {
+            height: 40px;
+            outline: none;
+            padding: 5px;
+            margin-left: 5px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            color: gray;
         }
 
-        #result {
-            margin-bottom: 5px;
+        .input {
+            margin-bottom: 10px;
+        }
+
+        .info {
+            margin: 10px 0;
+            display: none;
         }
     </style>
 </head>
 
 <body>
     <div class="main">
-        <input id="number" type="text" placeholder="输入个数">
-        <button id="make">生成</button><button id="reset">重置</button><br><br>
+        <div class="input" style="display: inline-block;">
+            <input id="number" type="text" placeholder="输入个数">
+            <button class="btn" id="make">生成</button><button class="btn" id="reset">重置</button>
+        </div>
+        <div style="display: inline-block;">
+            <button class="btn" id="result">获取结果</button>
+        </div>
         <div id="choices">
-            <button id="result">获取结果</button><br>
-        </div><br>
-        <div id="res">结果为：<span></span></div>
+
+        </div>
+        <div class="info">随即结果为：</div>
+        <h1 class="result"></h1>
     </div>
 
 
@@ -69,8 +79,9 @@
         let number = input.value
         let choices = document.querySelector('#choices')
         let getResult = document.querySelector('#result')
-        let result = document.querySelector('#res span')
+        let result = document.querySelector('.result')
         let reset = document.querySelector('#reset')
+        let info = document.querySelector('.info')
 
         function getRandom(n, m) {
             return Math.floor(Math.random() * (m - n + 1) + n)
@@ -82,6 +93,7 @@
             }
             for (let i = 0; i < input.value; i++) {
                 let content = document.createElement('input')
+                content.className = 'item'
                 let j = i + 1
                 content.value = '选择' + j
                 choices.appendChild(content)
@@ -102,6 +114,7 @@
             }
 
             let index = getRandom(0, arr.length - 1)
+            info.style.display = 'block'
             result.innerHTML = arr[index]
         }
 
