@@ -39,7 +39,7 @@
             height: 40px;
             outline: none;
             padding: 5px;
-            margin-left: 5px;
+            margin: 5px 5px 0 0;
             border: 1px solid lightgray;
             border-radius: 5px;
             color: gray;
@@ -68,7 +68,7 @@
         <div id="choices">
 
         </div>
-        <div class="info">随即结果为：</div>
+        <div class="info">随机结果为：</div>
         <h1 class="result"></h1>
     </div>
 
@@ -91,6 +91,7 @@
             if (!input.value) {
                 return
             }
+            choices.innerHTML=''
             for (let i = 0; i < input.value; i++) {
                 let content = document.createElement('input')
                 content.className = 'item'
@@ -104,7 +105,6 @@
         getResult.onclick = () => {
             let list = document.querySelectorAll('#choices input')
             let arr = []
-
             if (!list.length) {
                 return
             }
@@ -112,7 +112,6 @@
             for (let val of list) {
                 arr.push(val.value)
             }
-
             let index = getRandom(0, arr.length - 1)
             info.style.display = 'block'
             result.innerHTML = arr[index]
