@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./wordcloud.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" style="width: 100vw; height: 100vh; text-align: center;"></div>
+    <script>
+        let list = []
+        let sizes = new Array(100).fill(0).map((v, i) => i)
+        for (let val of sizes) {
+            let str = val % 2 === 0 ? 'JavaScript' : 'Python'
+            list.push([str, val])
+        }
+
+        let div = document.getElementById('main')
+        let options = eval({
+            "list": list,
+            "gridSize": 6, // 密集程度 数字越小越密集
+            "weightFactor": 1, // 字体大小=原始大小*weightFactor
+            "maxFontSize": 60, //最大字号
+            "minFontSize": 14, //最小字号
+            "fontWeight": 'normal', //字体粗细
+            "color": 'random-light', // 字体颜色 'random-dark' 或者 'random-light'
+            "backgroundColor": '#333', // 背景颜色
+            "rotateRatio": 1 // 字体倾斜(旋转)概率，1代表总是倾斜(旋转)
+        });
+        WordCloud(div, options);
+    </script>
+</body>
+
+</html>

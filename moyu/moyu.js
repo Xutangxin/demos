@@ -42,16 +42,16 @@ class Moyu {
 
     //将视频截图设置到link标签的href
     setFavico() {
-        const url = this.canvas.toDataURL('image/png')
+        let url = this.canvas.toDataURL('image/png')
         let icons = [...document.querySelector('head').querySelectorAll('link')]
             .filter(link => {
-                const rel = link.getAttribute('rel') || ''
+                let rel = link.getAttribute('rel') || ''
                 return rel.indexOf('icon') > -1
             })
         if (icons.length) {
             icons.forEach(icon => icon.setAttribute('href', url))
         } else {
-            const icon = document.createElement('link')
+            let icon = document.createElement('link')
             icon.setAttribute('rel', 'icon')
             icon.setAttribute('href', url)
             document.querySelector('head').appendChild(icon)
