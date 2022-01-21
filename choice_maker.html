@@ -35,7 +35,7 @@
             outline: none;
         }
 
-        #number,
+        .number,
         .item {
             height: 40px;
             outline: none;
@@ -87,13 +87,13 @@
 <body>
     <div class="main">
         <div class="input" style="display: inline-block;">
-            <input id="number" type="text" placeholder="输入个数">
-            <button class="btn" id="make">生成</button><button class="btn" id="reset">重置</button>
+            <input class="number" type="text" placeholder="输入个数">
+            <button class="btn make">生成</button><button class="btn reset">重置</button>
         </div>
         <div style="display: inline-block;">
-            <button class="btn" id="result">获取结果</button>
+            <button class="btn result">获取结果</button>
         </div>
-        <div id="choices">
+        <div class="choices">
 
         </div>
 
@@ -106,18 +106,18 @@
 
 
     <script>
-        let input = document.querySelector('#number')
-        let make = document.querySelector('#make')
+        let input = document.querySelector('.number')
+        let make = document.querySelector('.make')
         let number = input.value
-        let choices = document.querySelector('#choices')
-        let getResult = document.querySelector('#result')
+        let choices = document.querySelector('.choices')
+        let getResult = document.querySelector('.result')
         let resultText = document.querySelector('.result-text')
-        let reset = document.querySelector('#reset')
+        let reset = document.querySelector('.reset')
         let info = document.querySelector('.info')
         let popup = document.querySelector('.popup')
         let movePopup = document.querySelector('.move')
 
-        // popup.style.display = 'none'
+        popup.style.display = 'none'
 
         function getRandom(n, m) {
             return Math.floor(Math.random() * (m - n + 1) + n)
@@ -142,7 +142,7 @@
         }
 
         getResult.onclick = () => {
-            let list = document.querySelectorAll('#choices input')
+            let list = document.querySelectorAll('.choices input')
             let arr = []
             if (!list.length) return
 
