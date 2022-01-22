@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main {
+            width: 90vw;
+            height: fit-content;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        body {
+            padding: 10px;
+        }
+
+        .btn {
+            width: 80px;
+            height: 40px;
+            margin-left: 10px;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .number,
+        .item {
+            height: 40px;
+            outline: none;
+            padding: 5px;
+            padding-left: 10px;
+            margin: 5px 5px 0 0;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            color: gray;
+        }
+
+        .input {
+            margin-bottom: 10px;
+        }
+
+        .info {
+            margin: 10px 0;
+            display: none;
+        }
+
+        .popup {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40vw;
+            height: 35vh;
+            background: #fff;
+            border: 2px solid lightgray;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup .move {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+        .popup .result-text {
+            margin-top: 40px;
+            font-size: 50px;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="input" style="display: inline-block;">
+            <input class="number" type="text" placeholder="输入个数">
+            <button class="btn make">生成</button><button class="btn reset">重置</button>
+            <button class="btn result">获取结果</button>
+            <button class="btn start ">开始</button>
+            <button class="btn stop">停止</button>
+
+        </div>
+        <div class="choices">
+
+        </div>
+
+        <div class="popup">
+            <span class="move">❌</span>
+            <h2>随机结果为：</h2>
+            <h1 class="result-text"></h1>
+        </div>
+    </div>
+
+
+    <script>
+        let input = document.querySelector('.number')
+        let make = document.querySelector('.make')
+        let number = input.value
+        let choices = document.querySelector('.choices')
+        let getResult = document.querySelector('.result')
+        let resultText = document.querySelector('.result-text')
+        let reset = document.querySelector('.reset')
+        let info = document.querySelector('.info')
+        let popup = document.querySelector('.popup')
+        let movePopup = document.querySelector('.move')
+        let start = document.querySelector('.start')
+        let stop = document.querySelector('.stop')
+        let isStop = false
+        let timer
+
+        popup.style.display = 'none'
+
+        function getRandom(n, m) {
+            return Math.floor(Math.random() * (m - n + 1) + n)
+        }
+
+        make.onclick = () => {
+            if (!input.value) return
+            if (input.value >= 5000) {
+                alert('数量过多，可能会导致网页崩溃！')
+                input.value = ''
+                return
+            }
+            choices.innerHTML = ''
+            for (let i = 0; i < input.value; i++) {
+                let content = document.createElement('input')
+                content.className = 'item'
+                let j = i + 1
+                content.value = '选择' + j
+                choices.appendChild(content)
+            }
+            input.value = ''
+        }
+
+        getResult.onclick = () => {
+            let list = document.querySelectorAll('.choices input')
+            if (!list.length) return
+            let index = getRandom(0, list.length - 1)
+            popup.style.display = 'block'
+            resultText.innerHTML = list[index].value
+        }
+
+        reset.onclick = () => {
+            location.reload()
+        }
+
+        movePopup.onclick = () => {
+            popup.style.display = 'none'
+        }
+
+        start.onclick = () => {
+            isStop = false
+            popup.style.display = 'block'
+            let list = document.querySelectorAll('.choices input')
+            if (timer) clearInterval(timer)
+            timer = setInterval(() => {
+                let index = getRandom(0, list.length - 1)
+                if (!isStop) resultText.innerHTML = list[index].value
+            }, 80);
+        }
+
+        stop.onclick = () => {
+            isStop = true
+        }
+    </script>
+
+</body>
+
+</html>
