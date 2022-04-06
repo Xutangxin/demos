@@ -42,8 +42,14 @@
       }
 
       function backToTop() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        const timer = setInterval(() => {
+          const distance =
+            document.body.scrollTop || document.documentElement.scrollTop;
+          const speed = Math.floor(-distance / 5);
+          document.documentElement.scrollTop += speed;
+          document.body.scrollTop += speed;
+          if (!distance) clearInterval(timer);
+        }, 30);
       }
     </script>
   </body>
